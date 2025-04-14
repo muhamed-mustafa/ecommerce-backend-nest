@@ -9,8 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
-    UserModule,
     AuthModule,
+    UserModule,
     ReviewModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
