@@ -4,7 +4,9 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcryptjs';
 import { User } from 'src/user/user.entity';
 import { LoginDto } from './dto/login.dto';
-import { AuthResponseDto } from './dto/auth-dto-response';
+import { AuthResponseDto } from './dto/auth.dto.response';
+import { CurrentUser } from './decorators/current-user-decorator';
+import { JWTPayloadType } from 'src/utils/types';
 
 @Injectable()
 export class AuthService {
@@ -36,5 +38,10 @@ export class AuthService {
     await this.userService.checkPassword(user, password);
     const token = await this.userService.generateJwtToken(user);
     return { user, token };
+  }
+
+  public async currentUser(id: number): Promise<User> {
+    const currentUser = await this.userService.findOneById(id);
+    return currentUser;
   }
 }

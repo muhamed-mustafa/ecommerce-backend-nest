@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/update.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -35,6 +36,21 @@ export class UserService {
     return await this.userRepository.save(newUser);
   }
 
+  async updateUser(
+    id: number,
+    { username, password }: UpdateUserDto,
+  ): Promise<User> {
+    const user = await this.findOneById(id);
+    user.username = username ?? user.username;
+    user.password = password ? await bcrypt.hash(password, 10) : user.password;
+    return await this.userRepository.save(user);
+  }
+
+  async deleteUser(id: number): Promise<void> {
+    const user = await this.findOneById(id);
+    await this.userRepository.remove(user);
+  }
+
   async checkPassword(user: User, password: string): Promise<boolean> {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw new BadRequestException('Invalid credentials!');
@@ -44,5 +60,9 @@ export class UserService {
   async generateJwtToken(user: User): Promise<string> {
     const payload: JWTPayloadType = { id: user.id, userType: user.userType };
     return this.jwtService.signAsync(payload);
+  }
+
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 }
