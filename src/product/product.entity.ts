@@ -28,10 +28,10 @@ export class Product {
   @Column({ type: 'int' })
   stock: number;
 
-  @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE', eager: true })
   user: User;
 
-  @OneToMany(() => Review, (review) => review.product, { cascade: true })
+  @OneToMany(() => Review, (review) => review.product, { cascade: true, eager: true })
   reviews: Review[];
 
   @CreateDateColumn({ type: 'timestamp', default: CURRENT_TIMESTAMP })

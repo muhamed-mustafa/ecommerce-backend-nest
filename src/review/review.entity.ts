@@ -21,7 +21,7 @@ export class Review {
   @Column({ type: 'text' })
   comment: string;
 
-  @ManyToOne(() => User, (user) => user.reviews, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.reviews, { onDelete: 'CASCADE', eager: true })
   user: User;
 
   @ManyToOne(() => Product, (product) => product.reviews, {

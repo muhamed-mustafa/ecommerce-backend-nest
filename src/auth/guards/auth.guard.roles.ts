@@ -19,7 +19,7 @@ declare module 'express' {
 }
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthRoleGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
