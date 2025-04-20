@@ -16,6 +16,7 @@ export class AuthService {
     username,
     email,
     password,
+    profileImage
   }: RegisterDto): Promise<AuthResponseDto> {
     await this.userService.assertEmailIsAvailable(email);
 
@@ -27,6 +28,7 @@ export class AuthService {
       username,
       email,
       password: hashedPassword,
+      profileImage,
     });
 
     const token = await this.userService.generateJwtToken(user);

@@ -5,7 +5,10 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -15,14 +18,30 @@ import { AuthResponseDto } from './dto/auth.dto.response';
 import { JWTPayloadType } from 'src/utils/jwt.type';
 import { CurrentUser } from './decorators/current-user-decorator';
 import { AuthGuard } from './guards/auth.guard';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { Request } from 'express';
 @Controller('/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signup(@Body() registerDto: RegisterDto): Promise<AuthResponseDto> {
-    return this.authService.signup(registerDto);
+  @UseInterceptors(FileInterceptor('profileImage'))
+  async signup(
+    @Body() registerDto: RegisterDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: Request,
+  ): Promise<AuthResponseDto> {
+    const hostUrl = `${req.protocol}://${req.get('host')}`;
+    const profileImage = file
+      ? `${hostUrl}/uploads/users/${file.filename}`
+      : null;
+
+    return this.authService.signup({
+      ...registerDto,
+      profileImage,
+    });
   }
 
   @Post('signin')

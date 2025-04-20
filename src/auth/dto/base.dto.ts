@@ -1,6 +1,7 @@
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MaxLength,
   MinLength,
@@ -16,4 +17,8 @@ export class BaseAuthDto {
   @MinLength(6)
   @IsNotEmpty()
   password: string;
+
+  @IsString()
+  @IsOptional()
+  profileImage?: string;
 }

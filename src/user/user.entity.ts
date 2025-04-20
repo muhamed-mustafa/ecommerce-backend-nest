@@ -39,6 +39,9 @@ export class User {
   @OneToMany(() => Review, (review) => review.user, { cascade: true })
   reviews: Review[];
 
+  @Column({ nullable: true })
+  profileImage: string;
+
   @CreateDateColumn({ type: 'timestamp', default: CURRENT_TIMESTAMP })
   createdAt: Date;
 
