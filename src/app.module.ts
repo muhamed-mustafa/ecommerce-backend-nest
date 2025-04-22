@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { MailModule } from './mail/mail.module';
 @Module({
   imports: [
     AuthModule,
@@ -34,6 +35,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     ProductModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [

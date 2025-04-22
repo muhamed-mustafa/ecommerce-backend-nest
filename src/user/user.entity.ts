@@ -33,6 +33,9 @@ export class User {
   @Column({ type: 'boolean', default: false })
   isVerified: boolean;
 
+  @Column({ nullable: true })
+  verificationToken: string;
+
   @OneToMany(() => Product, (product) => product.user, { cascade: true })
   products: Product[];
 

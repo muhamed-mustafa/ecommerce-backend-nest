@@ -4,6 +4,8 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  ParseIntPipe,
   Post,
   Req,
   UploadedFile,
@@ -54,5 +56,15 @@ export class AuthController {
   @UseGuards(AuthGuard)
   async currentUser(@CurrentUser() user: JWTPayloadType): Promise<User> {
     return this.authService.currentUser(user.id);
+  }
+
+  @Get('verify/:id/:verificationToken')
+  @HttpCode(HttpStatus.OK)
+  async verify(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('verificationToken') verificationToken: string,
+  ): Promise<User> {
+    console.log(id, verificationToken);
+    return this.authService.verifyUser(id, verificationToken);
   }
 }

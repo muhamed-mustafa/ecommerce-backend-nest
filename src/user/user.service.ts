@@ -51,6 +51,13 @@ export class UserService {
     await this.userRepository.remove(user);
   }
 
+  async setIsVerified(id: number): Promise<User> {
+    const user = await this.findOneById(id);
+    user.isVerified = true;
+    user.verificationToken = null;
+    return await this.userRepository.save(user);
+  }
+
   async checkPassword(user: User, password: string): Promise<boolean> {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw new BadRequestException('Invalid credentials!');
