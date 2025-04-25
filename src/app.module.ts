@@ -7,10 +7,30 @@ import { ProductModule } from './product/product.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        name: 'short',
+        ttl: 60000,
+        limit: 2,
+      },
+
+      {
+        name: 'medium',
+        ttl: 60000,
+        limit: 5,
+      },
+
+      {
+        name: 'long',
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
     AuthModule,
     UserModule,
     ReviewModule,
@@ -41,6 +61,7 @@ import { MailModule } from './mail/mail.module';
   providers: [
     AppService,
     { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
+    { provide: APP_GUARD, useClass: ThrottlerGuard}
   ],
 })
 export class AppModule {}

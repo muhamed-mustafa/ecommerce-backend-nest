@@ -8,8 +8,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
-import { Product } from 'src/product/product.entity';
-import { User } from 'src/user/user.entity';
+import { Product } from '../product/product.entity';
+import { User } from '../user/user.entity';
 @Entity({ name: 'reviews' })
 export class Review {
   @PrimaryGeneratedColumn()

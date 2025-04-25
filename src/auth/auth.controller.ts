@@ -21,15 +21,16 @@ import { JWTPayloadType } from 'src/utils/jwt.type';
 import { CurrentUser } from './decorators/current-user-decorator';
 import { AuthGuard } from './guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { Request } from 'express';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 @Controller('/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
   @UseInterceptors(FileInterceptor('profileImage'))
+  @ApiConsumes('multipart/form-data')
+    @ApiBody({ type: RegisterDto, required: true, description: 'Profile image' })
   async signup(
     @Body() registerDto: RegisterDto,
     @UploadedFile() file: Express.Multer.File,
@@ -64,7 +65,6 @@ export class AuthController {
     @Param('id', ParseIntPipe) id: number,
     @Param('verificationToken') verificationToken: string,
   ): Promise<User> {
-    console.log(id, verificationToken);
     return this.authService.verifyUser(id, verificationToken);
   }
 }

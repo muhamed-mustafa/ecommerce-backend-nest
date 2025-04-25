@@ -8,8 +8,8 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
-import { Review } from 'src/review/review.entity';
-import { User } from 'src/user/user.entity';
+import { Review } from '../review/review.entity';
+import { User } from '../user/user.entity';
 
 @Entity({ name: 'products' })
 export class Product {

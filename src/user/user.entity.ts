@@ -7,9 +7,9 @@ import {
   OneToMany,
 } from 'typeorm';
 import { CURRENT_TIMESTAMP } from '../utils/constants';
-import { Review } from 'src/review/review.entity';
-import { UserType } from 'src/utils/enums';
-import { Product } from 'src/product/product.entity';
+import { Review } from '../review/review.entity';
+import { UserType } from '../utils/enums';
+import { Product } from '../product/product.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
