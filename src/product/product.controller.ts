@@ -13,11 +13,11 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product-dto';
 import { UpdateProductDto } from './dto/update-product-dto';
-import { UserType } from 'src/utils/enums';
-import { Role } from 'src/user/decorators/user.role.decorator';
-import { CurrentUser } from 'src/auth/decorators/current-user-decorator';
-import { JWTPayloadType } from 'src/utils/jwt.type';
-import { AuthRoleGuard } from 'src/auth/guards/auth.guard.roles';
+import { UserType } from '../utils/enums';
+import { Role } from '../user/decorators/user.role.decorator';
+import { CurrentUser } from '../auth/decorators/current-user-decorator';
+import { JWTPayloadType } from '../utils/jwt.type';
+import { AuthRoleGuard } from '../auth/guards/auth.guard.roles';
 import {
   ApiOperation,
   ApiResponse,
@@ -49,9 +49,9 @@ export class ProductController {
     summary: 'Get all products with filters and pagination options',
   })
   findAll(
-    @Query('name') name: string,
-    @Query('minPrice') minPrice: string,
-    @Query('maxPrice') maxPrice: string,
+    @Query('name') name?: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
   ) {
     return this.productService.findAll(name, minPrice, maxPrice);
   }

@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './review.entity';
 import { Repository } from 'typeorm';
-import { ProductService } from 'src/product/product.service';
+import { ProductService } from '../product/product.service';
 import { CreateReviewDto } from './dto/create.review.dto';
 import { AuthService } from '../auth/auth.service';
 import { UpdateReviewDto } from './dto/update.review.dto';

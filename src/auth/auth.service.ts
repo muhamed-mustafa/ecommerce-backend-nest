@@ -38,8 +38,6 @@ export class AuthService {
 
     const token = await this.userService.generateJwtToken(user);
 
-    // verify/:id/:token
-
     await this.mailService.sendMail(
       email,
       `${this.configService.get<string>('DOMAIN')}/api/auth/verify/${user.id}/${user.verificationToken}`,

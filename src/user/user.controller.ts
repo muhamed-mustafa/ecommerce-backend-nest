@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Role } from './decorators/user.role.decorator';
-import { UserType } from 'src/utils/enums';
+import { UserType } from '../utils/enums';
 import { AuthRoleGuard } from './guards/auth.guard.roles';
 import { UpdateUserDto } from './dto/update.dto';
 

@@ -12,12 +12,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import { CurrentUser } from 'src/auth/decorators/current-user-decorator';
+import { CurrentUser } from '../auth/decorators/current-user-decorator';
 import { JWTPayloadType } from 'src/utils/jwt.type';
 import { CreateReviewDto } from './dto/create.review.dto';
-import { AuthRoleGuard } from 'src/user/guards/auth.guard.roles';
-import { UserType } from 'src/utils/enums';
-import { Role } from 'src/user/decorators/user.role.decorator';
+import { AuthRoleGuard } from '../user/guards/auth.guard.roles';
+import { UserType } from '../utils/enums';
+import { Role } from '../user/decorators/user.role.decorator';
 import { UpdateReviewDto } from './dto/update.review.dto';
 
 @Controller('reviews')

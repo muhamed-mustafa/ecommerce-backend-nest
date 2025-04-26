@@ -7,10 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
-import { JWTPayloadType } from 'src/utils/jwt.type';
+import { JWTPayloadType } from '../../utils/jwt.type';
 import { Reflector } from '@nestjs/core';
-import { UserService } from 'src/user/user.service';
-import { UserType } from 'src/utils/enums';
+import { UserService } from '../../user/user.service';
+import { UserType } from '../../utils/enums';
 
 declare module 'express' {
   export interface Request {
