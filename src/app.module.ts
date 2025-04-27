@@ -14,6 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { dataSourceOptions } from 'db/data-source';
 @Module({
   imports: [
     ThrottlerModule.forRoot([
@@ -38,22 +39,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
     AuthModule,
     UserModule,
     ReviewModule,
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return {
-          type: 'postgres',
-          host: configService.get<string>('DB_HOST'),
-          port: parseInt(configService.get('DB_PORT'), 10),
-          username: configService.get<string>('DB_USERNAME'),
-          password: configService.get<string>('DB_PASSWORD'),
-          database: configService.get<string>('DB_NAME'),
-          autoLoadEntities: true,
-          synchronize: process.env.NODE_ENV !== 'production',
-          logging: true,
-        };
-      },
-    }),
+    TypeOrmModule.forRootAsync(dataSourceOptions),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,

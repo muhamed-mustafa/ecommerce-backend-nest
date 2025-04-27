@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -64,7 +66,7 @@ export class ProductController {
 
   @Patch(':id')
   @UseGuards(AuthRoleGuard)
-  @Role(UserType.USER)
+  @Role(UserType.ADMIN)
   @ApiSecurity('Bearer')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -76,6 +78,7 @@ export class ProductController {
   @Delete(':id')
   @UseGuards(AuthRoleGuard)
   @Role(UserType.ADMIN)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @SkipThrottle()
   async remove(@Param('id', ParseIntPipe) id: number) {
     await this.productService.remove(id);

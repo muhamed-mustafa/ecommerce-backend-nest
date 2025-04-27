@@ -110,7 +110,7 @@ describe('ProductController (e2e)', () => {
           stock: 25,
         });
       expect(response.status).toBe(400);
-    })
+    });
     it('should find all products', async () => {
       await request(app.getHttpServer())
         .get('/products')
@@ -120,4 +120,73 @@ describe('ProductController (e2e)', () => {
         });
     });
   });
+
+  describe('get product by id', () => {
+    it('should find a product by id', async () => {
+      const { body } = await request(app.getHttpServer())
+        .post('/products')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({
+          name: 'Laptop',
+          description: 'A powerful and sleek high-end laptop',
+          price: 1299.99,
+          stock: 25,
+        });
+
+      const response = await request(app.getHttpServer())
+        .get(`/products/${body.id}`)
+        .expect(200);
+      expect(response.body).toBeDefined();
+    });
+
+    it('should return 404 if product not found', async () => {
+      await request(app.getHttpServer()).get('/products/999').expect(404);
+    });
+  });
+
+  describe('update product', () => {
+    it('should update a product', async () => {
+      const { body } = await request(app.getHttpServer())
+        .post('/products')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({
+          name: 'Laptop',
+          description: 'A powerful and sleek high-end laptop',
+          price: 1299.99,
+          stock: 25,
+        });
+
+      const response = await request(app.getHttpServer())
+        .patch(`/products/${body.id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({
+          name: 'Laptop updated',
+        })
+        .expect(200);
+
+      expect(response.body).toBeDefined();
+      expect(response.body.name).toBe('Laptop updated');
+    });
+  });
+
+  describe('delete product', () => {
+    it('should delete a product', async () => {
+      const { body } = await request(app.getHttpServer())
+        .post('/products')
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send({
+          name: 'Laptop',
+          description: 'A powerful and sleek high-end laptop',
+          price: 1299.99,
+          stock: 25,
+        });
+
+      const response = await request(app.getHttpServer())
+        .delete(`/products/${body.id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .expect(204);
+
+      expect(response.status).toBe(204);
+    });
+  })
 });
