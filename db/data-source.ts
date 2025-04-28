@@ -2,7 +2,7 @@ import { Product } from 'src/product/product.entity';
 import { Review } from 'src/review/review.entity';
 import { User } from 'src/user/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config} from 'dotenv';
+import { config } from 'dotenv';
 
 config({ path: '.env' });
 
