@@ -42,7 +42,10 @@ import { dataSourceOptions } from 'db/data-source';
     TypeOrmModule.forRootAsync(dataSourceOptions),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV !== 'production' ? `.env.${process.env.NODE_ENV}` : '.env',
+      envFilePath:
+        process.env.NODE_ENV !== 'production'
+          ? `.env.${process.env.NODE_ENV}`
+          : '.env',
     }),
     ProductModule,
     MailModule,
