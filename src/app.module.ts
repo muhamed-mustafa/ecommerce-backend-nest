@@ -10,11 +10,11 @@ import { ReviewModule } from './review/review.module';
 import { ProductModule } from './product/product.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { dataSourceOptions } from 'db/data-source';
+import { dataSourceOptions as options } from '../db/data-source';
 @Module({
   imports: [
     ThrottlerModule.forRoot([
@@ -39,7 +39,7 @@ import { dataSourceOptions } from 'db/data-source';
     AuthModule,
     UserModule,
     ReviewModule,
-    TypeOrmModule.forRootAsync(dataSourceOptions),
+    TypeOrmModule.forRoot(options),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath:
