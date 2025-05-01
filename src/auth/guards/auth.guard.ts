@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
-import { JWTPayloadType } from 'src/utils/jwt.type';
+import { JWTPayloadType } from '../../utils/jwt.type';
 
 declare module 'express' {
   export interface Request {

@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { CurrentUser } from '../auth/decorators/current-user-decorator';
-import { JWTPayloadType } from 'src/utils/jwt.type';
+import { JWTPayloadType } from '../utils/jwt.type';
 import { CreateReviewDto } from './dto/create.review.dto';
 import { AuthRoleGuard } from '../user/guards/auth.guard.roles';
 import { UserType } from '../utils/enums';
